@@ -43,7 +43,7 @@ $userCredits = $loggedIn ? getUserCredits($_SESSION['tool_user_id']) : 0;
           $features = json_decode($tool['features'] ?? '[]', true);
         ?>
         <div class="card tool-card">
-          <span class="tool-badge <?= $tool['is_free'] ? 'free' : 'paid' ?>"><?= $tool['is_free'] ? 'Free' : ($tool['price'] ? '$' . number_format($tool['price'],2) : 'Paid') ?></span>
+          <span class="tool-badge <?= $tool['is_free'] ? 'free' : 'paid' ?>"><?= $tool['is_free'] ? 'Free' : ($tool['price'] ? 'PKR ' . number_format($tool['price'], 0) : 'Paid') ?></span>
           <div class="card-icon"><i class="<?= e($tool['icon']) ?>"></i></div>
           <h3><?= e($tool['name']) ?></h3>
           <p><?= e($tool['description']) ?></p>
