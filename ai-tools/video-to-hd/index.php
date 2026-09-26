@@ -248,7 +248,7 @@
       <div id="plan-free" style="background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:1.75rem;display:flex;flex-direction:column;gap:.75rem;transition:border-color .3s">
         <div style="font-size:1.8rem">🆓</div>
         <h3 style="margin:0;font-size:1.1rem">Free</h3>
-        <div style="font-size:2rem;font-weight:800;color:var(--ink)">$0</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--ink)">Free</div>
         <p style="color:var(--muted);font-size:.88rem;margin:0">30 Credits / month</p>
         <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem;color:var(--muted);font-size:.85rem">
           <li>✓ 720p &amp; 1080p</li>

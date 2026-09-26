@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             trim($_POST['short_description']), trim($_POST['full_description']),
             trim($_POST['category']), trim($_POST['icon']) ?: 'fas fa-box',
             $image, (float)($_POST['price'] ?? 0),
-            trim($_POST['price_label']), trim($_POST['currency']) ?: 'USD',
+            trim($_POST['price_label']), trim($_POST['currency']) ?: 'PKR',
             isset($_POST['is_featured']) ? 1 : 0,
             trim($_POST['demo_url']), trim($_POST['purchase_url']),
             trim($_POST['button_text']) ?: 'Get Started',

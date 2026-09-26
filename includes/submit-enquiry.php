@@ -27,6 +27,20 @@ if ($recaptchaToken && $recaptchaSecret !== '6Lc9VtAtAAAAALMPYL0OQ2WNvEJE1Ye932u
     }
 }
 
+// reCAPTCHA v2 verify
+$recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
+$recaptchaSecret   = '6LdCW9AtAAAAAEdZZe3EnV3VpNNIU5CjFc7ycxim'; // Secret Key
+if (empty($recaptchaResponse)) {
+    echo json_encode(['success' => false, 'message' => 'Please complete the reCAPTCHA verification.']);
+    exit;
+}
+$verify = @file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
+$result = json_decode($verify, true);
+if (!$result['success']) {
+    echo json_encode(['success' => false, 'message' => 'reCAPTCHA failed. Please try again.']);
+    exit;
+}
+
 $name    = trim(strip_tags($_POST['name'] ?? ''));
 $email   = trim($_POST['email'] ?? '');
 $phone   = trim(strip_tags($_POST['phone'] ?? ''));

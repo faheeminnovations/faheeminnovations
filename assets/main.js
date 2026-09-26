@@ -71,21 +71,33 @@ document.addEventListener('DOMContentLoaded', function () {
     reveals.forEach(r => revealObs.observe(r));
   }
 
-  // Contact form with reCAPTCHA v3
+  // Contact form
   const form = document.getElementById('contactForm');
   if (form) {
-    // reCAPTCHA done event — actual submit
-    form.addEventListener('recaptcha_done', async function() {
-      const btn = form.querySelector('[type=submit]');
-      const msg = document.getElementById('formSuccess');
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn   = form.querySelector('[type=submit]');
+      const msg   = document.getElementById('formSuccess');
+      const recap = form.querySelector('.g-recaptcha');
+
+      // Check reCAPTCHA if present
+      if (recap && typeof grecaptcha !== 'undefined') {
+        const response = grecaptcha.getResponse();
+        if (!response) {
+          alert('Please complete the reCAPTCHA verification.');
+          return;
+        }
+      }
+
       btn.disabled = true;
       btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
       try {
-        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        const res  = await fetch(form.action, { method: 'POST', body: new FormData(form) });
         const data = await res.json();
         if (data.success) {
           msg && msg.classList.add('show');
           form.reset();
+          if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
         } else {
           alert(data.message || 'Something went wrong.');
         }

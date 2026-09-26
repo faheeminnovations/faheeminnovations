@@ -146,7 +146,7 @@ $planIcons  = ['free'=>'🆓','pro'=>'⭐','premium'=>'🚀','lifetime'=>'♾️
           <?php if($isCurrent): ?><div class="current-tag">Current Plan</div><?php endif; ?>
           <div class="plan-icon"><?= $icons[$plan['slug']] ?? '📦' ?></div>
           <h4><?= htmlspecialchars(ucfirst($plan['name'])) ?></h4>
-          <div class="plan-price"><?= $plan['price'] > 0 ? '$'.number_format($plan['price'],2) : 'Free' ?></div>
+          <div class="plan-price"><?= $plan['price'] > 0 ? 'PKR '.number_format($plan['price'],0) : 'Free' ?></div>
           <div class="plan-credits"><?= number_format($plan['credits']) ?> Credits/<?= $plan['period'] === 'one-time' ? 'lifetime' : 'month' ?></div>
           <?php if($isCurrent): ?>
           <span class="btn-current"><i class="fas fa-check"></i> Active</span>

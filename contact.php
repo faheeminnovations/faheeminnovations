@@ -82,12 +82,8 @@ require_once 'includes/header.php';
             <label>Message *</label>
             <textarea name="message" required placeholder="Tell us about your project or requirements..."></textarea>
           </div>
+          <div class="g-recaptcha" data-sitekey="6LdCW9AtAAAAAEdZZe3EnV3VpNNIU5CjFc7ycxim" style="margin-bottom:16px"></div>
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Enquiry <i class="fas fa-paper-plane"></i></button>
-          <p style="font-size:0.75rem;color:#94a3b8;margin-top:10px;text-align:center">
-            Protected by reCAPTCHA —
-            <a href="https://policies.google.com/privacy" target="_blank" style="color:#94a3b8">Privacy</a> &
-            <a href="https://policies.google.com/terms" target="_blank" style="color:#94a3b8">Terms</a>
-          </p>
         </form>
       </div>
     </div>
@@ -114,17 +110,4 @@ require_once 'includes/header.php';
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lc9VtAtAAAAALMPYL0OQ2WNvEJE1Ye932uwYNIy"></script>
-<script>
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var form = this;
-  grecaptcha.ready(function() {
-    grecaptcha.execute('6Lc9VtAtAAAAALMPYL0OQ2WNvEJE1Ye932uwYNIy', {action: 'contact'}).then(function(token) {
-      document.getElementById('recaptchaToken').value = token;
-      // Now submit via fetch (handled by main.js)
-      form.dispatchEvent(new Event('recaptcha_done'));
-    });
-  });
-});
-</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
