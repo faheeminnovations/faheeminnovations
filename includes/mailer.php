@@ -8,6 +8,13 @@ define('SMTP_FROM',      'hello@faheeminnovations.online');
 define('SMTP_FROM_NAME', 'Faheem Innovations');
 define('SMTP_TO',        'hello@faheeminnovations.online');
 
+require_once __DIR__ . '/phpmailer/PHPMailer.php';
+require_once __DIR__ . '/phpmailer/SMTP.php';
+require_once __DIR__ . '/phpmailer/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 // Detect if running on live server or localhost
 $isLive = (strpos(SITE_URL, 'localhost') === false && strpos(SITE_URL, '127.0.0.1') === false);
 
@@ -16,13 +23,38 @@ function sendMail($toEmail, $toName, $subject, $htmlBody, $replyTo = '') {
 
     if ($isLive) {
         // Live server — use PHPMailer SMTP
-        use PHPMailer\PHPMailer\PHPMailer;
-        use PHPMailer\PHPMailer\Exception;
-        require_once __DIR__ . '/phpmailer/PHPMailer.php';
-        require_once __DIR__ . '/phpmailer/SMTP.php';
-        require_once __DIR__ . '/phpmailer/Exception.php';
-
         $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host       = SMTP_HOST;
+            $mail->SMTPAuth   = true;
+            $mail->Username   = SMTP_USER;
+            $mail->Password   = SMTP_PASS;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = SMTP_PORT;
+            $mail->CharSet    = 'UTF-8';
+            $mail->setFrom(SMTP_FROM, SMTP_FROM_NAME);
+            $mail->addAddress($toEmail, $toName);
+            if ($replyTo) $mail->addReplyTo($replyTo);
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+            $mail->Body    = $htmlBody;
+            $mail->AltBody = strip_tags($htmlBody);
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            error_log('Mailer Error: ' . $mail->ErrorInfo);
+            return false;
+        }
+    } else {
+        // Localhost — use PHP mail()
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $headers .= "From: " . SMTP_FROM_NAME . " <" . SMTP_FROM . ">\r\n";
+        if ($replyTo) $headers .= "Reply-To: $replyTo\r\n";
+        return mail($toEmail, $subject, $htmlBody, $headers);
+    }
+}
         try {
             $mail->isSMTP();
             $mail->Host       = SMTP_HOST;
