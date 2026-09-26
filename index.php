@@ -29,7 +29,7 @@ $clients = getClients();
         <div class="hero-visual-inner">
           <img src="<?= SITE_URL ?>/images/banner1.jpg" alt="Faheem Innovations Digital Solutions">
         </div>
-        <div class="hero-float hero-float-1"><i class="fas fa-check-circle"></i> 50+ Projects Delivered</div>
+        <div class="hero-float hero-float-1"><i class="fas fa-check-circle"></i> 30+ Projects Delivered</div>
         <div class="hero-float hero-float-2"><i class="fas fa-star"></i> Trusted by 30+ Clients</div>
       </div>
     </div>
