@@ -17,7 +17,7 @@ RewriteEngine On
 
 # ─── Block direct access to PHP in admin includes ────────────────────────────
 RewriteRule ^admin-panel/includes/.*\.php$ - [F,L]
-RewriteRule ^includes/.*\.php$ - [F,L]
+RewriteRule ^includes/(?!submit-enquiry\.php).*\.php$ - [F,L]
 
 # ─── Clean URL Routing ───────────────────────────────────────────────────────
 # Skip if real file or directory exists
