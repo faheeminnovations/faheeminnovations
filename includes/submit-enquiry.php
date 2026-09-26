@@ -16,9 +16,9 @@ if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_to
 }
 
 // reCAPTCHA v3 verify
-$recaptchaToken = $_POST['recaptcha_token'] ?? '';
-$recaptchaSecret = '6Lc9VtAtAAAAALMPYL0OQ2WNvEJE1Ye932uwYNIy'; // Replace with your real SECRET key
-if ($recaptchaToken) {
+$recaptchaToken  = $_POST['recaptcha_token'] ?? '';
+$recaptchaSecret = '6Lc9VtAtAAAAALMPYL0OQ2WNvEJE1Ye932uwYNIy'; // TODO: replace with real SECRET key
+if ($recaptchaToken && $recaptchaSecret !== '6Lc9VtAtAAAAALMPYL0OQ2WNvEJE1Ye932uwYNIy') {
     $verify = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $recaptchaSecret . '&response=' . $recaptchaToken);
     $result = json_decode($verify, true);
     if (!$result['success'] || ($result['score'] ?? 0) < 0.3) {
