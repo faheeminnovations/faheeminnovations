@@ -73,7 +73,7 @@ require_once '../includes/layout-top.php';
         </select>
       </div>
       <div class="form-group" id="priceGroup" style="display:none">
-        <label>Price (USD)</label>
+        <label>Price (PKR)</label>
         <input type="number" name="price" step="0.01" value="0">
       </div>
       <div class="form-group full">

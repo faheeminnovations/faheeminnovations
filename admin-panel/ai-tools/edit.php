@@ -81,7 +81,7 @@ require_once '../includes/layout-top.php';
         </select>
       </div>
       <div class="form-group" id="priceGroup" style="display:<?= $tool['is_free'] ? 'none' : 'block' ?>">
-        <label>Price (USD)</label>
+        <label>Price (PKR)</label>
         <input type="number" name="price" step="0.01" value="<?= e($tool['price']) ?>">
       </div>
       <div class="form-group full">
