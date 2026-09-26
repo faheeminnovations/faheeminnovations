@@ -34,9 +34,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $resetToken   = bin2hex(random_bytes(32));
                 $resetExpires = date('Y-m-d H:i:s', strtotime('+1 hour'));
                 $pdo->prepare("UPDATE users SET reset_token=?,reset_expires=? WHERE id=?")->execute([$resetToken,$resetExpires,$u['id']]);
-                $resetUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/forgot-password.php?token=' . $resetToken;
-                // In production, send via email. For now show the link.
-                $success = 'Reset link generated. <a href="' . htmlspecialchars($resetUrl) . '" style="color:#0B3C33;font-weight:600">Click here to reset</a> (valid 1 hour).<br><small style="color:#6b7280">In production, configure SMTP to email this link.</small>';
+                $resetUrl = SITE_URL . '/admin-panel/forgot-password.php?token=' . $resetToken;
+
+                // Send reset email via mailer
+                require_once dirname(__DIR__) . '/includes/mailer.php';
+                $html = '
+                <div style="font-family:Inter,sans-serif;max-width:560px;margin:0 auto;background:#f8fafc;padding:20px">
+                  <div style="background:#0B3C33;padding:24px;border-radius:12px 12px 0 0;text-align:center">
+                    <h2 style="color:#fff;margin:0;font-size:1.2rem">Password Reset Request</h2>
+                  </div>
+                  <div style="background:#fff;padding:28px;border-radius:0 0 12px 12px;border:1px solid #e2e8f0">
+                    <p>Hi <strong>' . htmlspecialchars($u['name']) . '</strong>,</p>
+                    <p style="color:#64748b;line-height:1.7;margin:12px 0">We received a request to reset your admin panel password. Click the button below to set a new password.</p>
+                    <div style="text-align:center;margin:28px 0">
+                      <a href="' . $resetUrl . '" style="background:#0B3C33;color:#fff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:1rem;display:inline-block">Reset My Password</a>
+                    </div>
+                    <p style="font-size:.82rem;color:#94a3b8">This link expires in <strong>1 hour</strong>. If you did not request this, ignore this email.</p>
+                    <p style="font-size:.82rem;color:#94a3b8;word-break:break-all">Or copy this link: ' . $resetUrl . '</p>
+                  </div>
+                </div>';
+
+                $sent = sendMail($u['email'], $u['name'], 'Reset Your Admin Password - Faheem Innovations', $html);
+                if ($sent) {
+                    $success = 'Reset link sent to <strong>' . htmlspecialchars($u['email']) . '</strong>. Check your inbox (valid 1 hour).';
+                } else {
+                    // Fallback — show link directly if email fails
+                    $success = 'Email could not be sent. <a href="' . htmlspecialchars($resetUrl) . '" style="color:#0B3C33;font-weight:600">Click here to reset directly</a> (valid 1 hour).';
+                }
             } else {
                 // Don't reveal if email exists
                 $success = 'If this email is registered, a reset link has been sent.';
