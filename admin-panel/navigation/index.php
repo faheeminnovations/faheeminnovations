@@ -66,7 +66,10 @@ require_once '../includes/layout-top.php';
             </a>
           </td>
           <td class="table-actions">
-            <a href="edit.php?id=<?= $item['id'] ?>" class="btn btn-outline btn-sm btn-icon" title="Edit"><i class="fas fa-edit"></i></a>
+            <button type="button" class="btn btn-outline btn-sm btn-icon" title="Edit"
+              onclick="openEdit(<?= $item['id'] ?>,'<?= e(addslashes($item['label'])) ?>','<?= e(addslashes($item['url'])) ?>','<?= $item['target'] ?>',<?= $item['status'] ?>,<?= $item['sort_order'] ?>)">
+              <i class="fas fa-edit"></i>
+            </button>
             <a href="?delete=<?= $item['id'] ?>" class="btn btn-danger btn-sm btn-icon" data-confirm="Delete '<?= e($item['label']) ?>'?"><i class="fas fa-trash"></i></a>
           </td>
         </tr>
@@ -175,11 +178,18 @@ function openEdit(id, label, url, target, status, order) {
   document.getElementById('editModal').style.display = 'flex';
 }
 function updateOrder(id, val) {
+  // Get current row data so we don't wipe label/url
+  const row = document.getElementById('row-' + id);
+  const label = row.querySelector('td:nth-child(2) strong').innerText;
+  const url   = row.querySelector('td:nth-child(3) code').innerText;
   fetch('', {
     method: 'POST',
     headers: {'Content-Type':'application/x-www-form-urlencoded'},
-    body: 'csrf_token=<?= csrf_token() ?>&edit_item=1&edit_id=' + id + '&sort_order=' + val
-        + '&label=&url=&target=_self&status=1'
+    body: 'csrf_token=<?= csrf_token() ?>&edit_item=1&edit_id=' + id
+        + '&sort_order=' + encodeURIComponent(val)
+        + '&label=' + encodeURIComponent(label)
+        + '&url=' + encodeURIComponent(url)
+        + '&target=_self&status=1'
   });
 }
 </script>
