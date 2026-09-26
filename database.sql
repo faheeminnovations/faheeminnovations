@@ -1,8 +1,6 @@
 -- Faheem Innovations Database Schema
--- Run this in phpMyAdmin or MySQL CLI
-
-CREATE DATABASE IF NOT EXISTS faheem_innovations CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE faheem_innovations;
+-- Import this file via phpMyAdmin into your existing database (e.g. mainfi2)
+-- Do NOT run CREATE DATABASE — the database must already exist on your host
 
 -- Users & Roles
 CREATE TABLE roles (
