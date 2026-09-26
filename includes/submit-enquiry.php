@@ -15,6 +15,18 @@ if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_to
     exit;
 }
 
+// reCAPTCHA v3 verify
+$recaptchaToken = $_POST['recaptcha_token'] ?? '';
+$recaptchaSecret = '6Lc9VtAtAAAAALMPYL0OQ2WNvEJE1Ye932uwYNIy'; // Replace with your real SECRET key
+if ($recaptchaToken) {
+    $verify = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $recaptchaSecret . '&response=' . $recaptchaToken);
+    $result = json_decode($verify, true);
+    if (!$result['success'] || ($result['score'] ?? 0) < 0.3) {
+        echo json_encode(['success' => false, 'message' => 'reCAPTCHA verification failed. Please try again.']);
+        exit;
+    }
+}
+
 $name    = trim(strip_tags($_POST['name'] ?? ''));
 $email   = trim($_POST['email'] ?? '');
 $phone   = trim(strip_tags($_POST['phone'] ?? ''));

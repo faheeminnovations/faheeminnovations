@@ -71,15 +71,15 @@ document.addEventListener('DOMContentLoaded', function () {
     reveals.forEach(r => revealObs.observe(r));
   }
 
-  // Contact form
+  // Contact form with reCAPTCHA v3
   const form = document.getElementById('contactForm');
   if (form) {
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
+    // reCAPTCHA done event — actual submit
+    form.addEventListener('recaptcha_done', async function() {
       const btn = form.querySelector('[type=submit]');
       const msg = document.getElementById('formSuccess');
       btn.disabled = true;
-      btn.textContent = 'Sending...';
+      btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
       try {
         const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
         const data = await res.json();
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Network error. Please try again.');
       }
       btn.disabled = false;
-      btn.textContent = 'Send Enquiry';
+      btn.innerHTML = 'Send Enquiry <i class="fas fa-paper-plane"></i>';
     });
   }
 });
