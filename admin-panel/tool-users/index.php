@@ -172,9 +172,9 @@ require_once '../includes/layout-top.php';
           <label>Select New Plan</label>
           <select name="plan" id="modalPlanSelect" style="width:100%;padding:11px 12px;border:1px solid var(--border);border-radius:6px;font:inherit;font-size:.95rem">
             <option value="free">🆓 Free — 30 Credits/month</option>
-            <option value="pro">⭐ Pro — 300 Credits/month ($9.99)</option>
-            <option value="premium">🚀 Premium — 1,000 Credits/month ($19.99)</option>
-            <option value="lifetime">♾️ Lifetime — 5,000 Credits ($99)</option>
+            <option value="pro">⭐ Pro — 300 Credits/month (PKR 2,800)</option>
+            <option value="premium">🚀 Premium — 1,000 Credits/month (PKR 5,600)</option>
+            <option value="lifetime">♾️ Lifetime — 5,000 Credits (PKR 27,720)</option>
           </select>
         </div>
         <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:10px 12px;font-size:.82rem;color:#92400e;margin-bottom:16px">

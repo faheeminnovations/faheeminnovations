@@ -262,7 +262,7 @@
       <div id="plan-pro" style="background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:1.75rem;display:flex;flex-direction:column;gap:.75rem;transition:border-color .3s">
         <div style="font-size:1.8rem">⭐</div>
         <h3 style="margin:0;font-size:1.1rem">Pro</h3>
-        <div style="font-size:2rem;font-weight:800;color:var(--teal)">$9.99<span style="font-size:1rem;font-weight:400;color:var(--muted)">/mo</span></div>
+        <div style="font-size:2rem;font-weight:800;color:var(--teal)">PKR 2,800<span style="font-size:1rem;font-weight:400;color:var(--muted)">/mo</span></div>
         <p style="color:var(--muted);font-size:.88rem;margin:0">300 Credits / month</p>
         <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem;color:var(--muted);font-size:.85rem">
           <li>✓ Up to 1440p</li>
@@ -277,7 +277,7 @@
         <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--teal);color:var(--on-teal);font-size:.72rem;font-weight:700;padding:3px 14px;border-radius:999px;white-space:nowrap">🔥 Most Popular</div>
         <div style="font-size:1.8rem">🚀</div>
         <h3 style="margin:0;font-size:1.1rem">Premium</h3>
-        <div style="font-size:2rem;font-weight:800;color:var(--teal)">$19.99<span style="font-size:1rem;font-weight:400;color:var(--muted)">/mo</span></div>
+        <div style="font-size:2rem;font-weight:800;color:var(--teal)">PKR 5,600<span style="font-size:1rem;font-weight:400;color:var(--muted)">/mo</span></div>
         <p style="color:var(--muted);font-size:.88rem;margin:0">1,000 Credits / month</p>
         <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem;color:var(--muted);font-size:.85rem">
           <li>✓ Up to 4K UHD</li>
@@ -292,7 +292,7 @@
       <div id="plan-lifetime" style="background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:1.75rem;display:flex;flex-direction:column;gap:.75rem;transition:border-color .3s">
         <div style="font-size:1.8rem">♾️</div>
         <h3 style="margin:0;font-size:1.1rem">Lifetime</h3>
-        <div style="font-size:2rem;font-weight:800;color:var(--gold)">$99<span style="font-size:1rem;font-weight:400;color:var(--muted)"> once</span></div>
+        <div style="font-size:2rem;font-weight:800;color:var(--gold)">PKR 27,720<span style="font-size:1rem;font-weight:400;color:var(--muted)"> once</span></div>
         <p style="color:var(--muted);font-size:.88rem;margin:0">5,000 Credits</p>
         <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem;color:var(--muted);font-size:.85rem">
           <li>✓ Never expires</li>
@@ -638,10 +638,10 @@ async function checkUserStatus() {
 function updatePricingCards(userPlan, credits) {
   const plans = ['free','pro','premium','lifetime'];
   const planData = {
-    free:     { price:'$0',     credits:'30/mo',    contact:false },
-    pro:      { price:'$9.99',  credits:'300/mo',   contact:true  },
-    premium:  { price:'$19.99', credits:'1,000/mo', contact:true  },
-    lifetime: { price:'$99',    credits:'5,000',    contact:true  },
+    free:     { price:'Free',        credits:'30/mo',    contact:false },
+    pro:      { price:'PKR 2,800',   credits:'300/mo',   contact:true  },
+    premium:  { price:'PKR 5,600',   credits:'1,000/mo', contact:true  },
+    lifetime: { price:'PKR 27,720',  credits:'5,000',    contact:true  },
   };
 
   plans.forEach(slug => {
