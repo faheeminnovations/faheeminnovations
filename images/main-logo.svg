@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" width="280" height="80">
+  <!-- Left angle bracket -->
+  <polyline points="48,10 28,40 48,70" fill="none" stroke="#1a1f36" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Right angle bracket -->
+  <polyline points="88,10 108,40 88,70" fill="none" stroke="#1a1f36" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- F letter (gradient blue) -->
+  <defs>
+    <linearGradient id="fgrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0088ff"/>
+      <stop offset="100%" stop-color="#0055cc"/>
+    </linearGradient>
+  </defs>
+  <rect x="62" y="10" width="7" height="60" rx="2" fill="url(#fgrad)"/>
+  <rect x="62" y="10" width="22" height="7" rx="2" fill="url(#fgrad)"/>
+  <rect x="62" y="34" width="18" height="6" rx="2" fill="url(#fgrad)"/>
+  <!-- Faheem text -->
+  <text x="122" y="44" font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="900" fill="#1a1f36" letter-spacing="-0.5">Faheem</text>
+  <!-- innovations text -->
+  <text x="122" y="64" font-family="'Arial', 'Helvetica Neue', sans-serif" font-size="15" font-weight="400" fill="#0077ee" letter-spacing="2.5">innovations</text>
+</svg>

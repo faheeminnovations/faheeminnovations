@@ -1,0 +1,17 @@
+# Sensitive configuration
+includes/config.php
+includes/google-oauth.php
+
+# Uploads (user-generated content)
+uploads/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+
+# XAMPP / local env
+*.log

@@ -1,0 +1,63 @@
+Options -Indexes
+RewriteEngine On
+
+# ─── Security Headers ────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ─── Block sensitive files ────────────────────────────────────────────────────
+<FilesMatch "\.(sql|log|env|ini|bak|sh)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ─── Block direct access to PHP in admin includes ────────────────────────────
+RewriteRule ^admin-panel/includes/.*\.php$ - [F,L]
+RewriteRule ^includes/.*\.php$ - [F,L]
+
+# ─── Clean URL Routing ───────────────────────────────────────────────────────
+# Skip if real file or directory exists
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^user/login/?$                  user/login.php [L]
+RewriteRule ^user/register/?$               user/register.php [L]
+RewriteRule ^user/dashboard/?$              user/dashboard.php [L]
+RewriteRule ^user/logout/?$                 user/logout.php [L]
+
+RewriteRule ^about/?$                       about.php [L]
+RewriteRule ^products/?$                    products.php [L]
+RewriteRule ^services/?$                    services.php [L]
+RewriteRule ^ai-tools/?$                    ai-tools.php [L]
+RewriteRule ^projects/?$                    projects.php [L]
+RewriteRule ^process/?$                     process.php [L]
+RewriteRule ^faqs/?$                        faq.php [L]
+RewriteRule ^faq/?$                         /faqs [R=301,L]
+RewriteRule ^our-clients/?$                 our-clients.php [L]
+RewriteRule ^contact/?$                     contact.php [L]
+
+# Dynamic detail pages
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^products/([a-z0-9-]+)/?$       pages/product.php?slug=$1 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^projects/([a-z0-9-]+)/?$       pages/project.php?slug=$1 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^services/([a-z0-9-]+)/?$       services.php?slug=$1 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ai-tools/([a-z0-9-]+)/?$       ai-tools.php?slug=$1 [QSA,L]
+
+# Admin shortcut
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin/?$                        admin-panel/index.php [L]
