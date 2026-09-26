@@ -7,6 +7,7 @@ define('SMTP_PASS',      '8vvdJ5p6o>V*');
 define('SMTP_FROM',      'hello@faheeminnovations.online');
 define('SMTP_FROM_NAME', 'Faheem Innovations');
 define('SMTP_TO',        'hello@faheeminnovations.online');
+define('SMTP_TO_OWNER',  'faheeminnovations@gmail.com');
 
 require_once __DIR__ . '/phpmailer/PHPMailer.php';
 require_once __DIR__ . '/phpmailer/SMTP.php';
@@ -73,7 +74,33 @@ function sendEnquiryNotification($data) {
       </div>
       <p style="text-align:center;font-size:.78rem;color:#94a3b8;margin-top:16px">Faheem Innovations - ' . date('d M Y, H:i') . '</p>
     </div>';
-    return sendMail(SMTP_TO, 'Faheem Innovations', 'New Enquiry: ' . $data['subject'], $html, $data['email']);
+    // Send to both hello@ and gmail
+    sendMail(SMTP_TO, 'Faheem Innovations', 'New Enquiry: ' . $data['subject'], $html, $data['email']);
+    sendMail(SMTP_TO_OWNER, 'Faheem Innovations', 'New Enquiry: ' . $data['subject'], $html, $data['email']);
+    return true;
+}
+
+function sendNewUserNotification($name, $email, $plan = 'free') {
+    $html = '
+    <div style="font-family:Inter,sans-serif;max-width:600px;margin:0 auto;background:#f8fafc;padding:20px">
+      <div style="background:#0B3C33;padding:24px;border-radius:12px 12px 0 0;text-align:center">
+        <h2 style="color:#fff;margin:0;font-size:1.3rem">New User Registered</h2>
+      </div>
+      <div style="background:#fff;padding:28px;border-radius:0 0 12px 12px;border:1px solid #e2e8f0">
+        <table style="width:100%;border-collapse:collapse">
+          <tr><td style="padding:10px 0;border-bottom:1px solid #f1f5f9;width:120px;color:#64748b;font-weight:600">Name</td><td style="padding:10px 0;border-bottom:1px solid #f1f5f9">' . htmlspecialchars($name) . '</td></tr>
+          <tr><td style="padding:10px 0;border-bottom:1px solid #f1f5f9;color:#64748b;font-weight:600">Email</td><td style="padding:10px 0;border-bottom:1px solid #f1f5f9">' . htmlspecialchars($email) . '</td></tr>
+          <tr><td style="padding:10px 0;color:#64748b;font-weight:600">Plan</td><td style="padding:10px 0">' . ucfirst($plan) . '</td></tr>
+        </table>
+        <div style="margin-top:24px;text-align:center">
+          <a href="' . SITE_URL . '/admin-panel/tool-users/" style="background:#0B3C33;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">View in Admin Panel</a>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:.78rem;color:#94a3b8;margin-top:16px">Faheem Innovations - ' . date('d M Y, H:i') . '</p>
+    </div>';
+    sendMail(SMTP_TO, 'Faheem Innovations', 'New User Registered: ' . $name, $html);
+    sendMail(SMTP_TO_OWNER, 'Faheem Innovations', 'New User Registered: ' . $name, $html);
+    return true;
 }
 
 function sendEnquiryAutoReply($data) {

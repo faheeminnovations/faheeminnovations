@@ -33,6 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $pdo->lastInsertId();
             // Give 30 free credits
             addCredits($userId, 30, 'Welcome bonus — Free plan credits');
+            // Notify admin
+            require_once '../includes/mailer.php';
+            @sendNewUserNotification($name, $email, 'free');
             // Auto-login
             $user = $pdo->prepare("SELECT * FROM tool_users WHERE id=?");
             $user->execute([$userId]);
