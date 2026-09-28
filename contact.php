@@ -82,7 +82,6 @@ require_once 'includes/header.php';
             <label>Message *</label>
             <textarea name="message" required placeholder="Tell us about your project or requirements..."></textarea>
           </div>
-          <div class="g-recaptcha" data-sitekey="6LdCW9AtAAAAAEdZZe3EnV3VpNNIU5CjFc7ycxim" style="margin-bottom:16px"></div>
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Enquiry <i class="fas fa-paper-plane"></i></button>
         </form>
       </div>
@@ -110,4 +109,3 @@ require_once 'includes/header.php';
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
