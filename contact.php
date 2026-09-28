@@ -82,7 +82,7 @@ require_once 'includes/header.php';
             <label>Message *</label>
             <textarea name="message" required placeholder="Tell us about your project or requirements..."></textarea>
           </div>
-          <div class="g-recaptcha" data-sitekey="6LdpztMtAAAAAIkkcoADI6AMhe7WxjkzrbQ6fHq9" style="margin-bottom:16px"></div>
+          <div class="g-recaptcha" data-sitekey="6Lfo0NMtAAAAADplIV_lR8AtitA7wKv-kt46OiXX" style="margin-bottom:16px"></div>
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Enquiry <i class="fas fa-paper-plane"></i></button>
         </form>
       </div>
