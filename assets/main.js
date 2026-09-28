@@ -74,19 +74,31 @@ document.addEventListener('DOMContentLoaded', function () {
   // Contact form
   const form = document.getElementById('contactForm');
   if (form) {
+    // Add inline error div after recaptcha
+    const recapDiv = form.querySelector('.g-recaptcha');
+    if (recapDiv) {
+      const errDiv = document.createElement('div');
+      errDiv.id = 'recaptchaError';
+      errDiv.style.cssText = 'display:none;color:#dc2626;font-size:.83rem;margin-bottom:10px;padding:8px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px';
+      errDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please complete the reCAPTCHA verification.';
+      recapDiv.insertAdjacentElement('afterend', errDiv);
+    }
+
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const btn   = form.querySelector('[type=submit]');
-      const msg   = document.getElementById('formSuccess');
+      const btn  = form.querySelector('[type=submit]');
+      const msg  = document.getElementById('formSuccess');
+      const recaptchaError = document.getElementById('recaptchaError');
 
-      // Check reCAPTCHA
+      // Check reCAPTCHA inline
       if (typeof grecaptcha !== 'undefined') {
         const response = grecaptcha.getResponse();
         if (!response) {
-          alert('Please complete the reCAPTCHA verification.');
+          if (recaptchaError) recaptchaError.style.display = 'block';
           return;
         }
       }
+      if (recaptchaError) recaptchaError.style.display = 'none';
 
       btn.disabled = true;
       btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
@@ -98,10 +110,27 @@ document.addEventListener('DOMContentLoaded', function () {
           form.reset();
           if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
         } else {
-          alert(data.message || 'Something went wrong.');
+          // Show server errors inline
+          let errBox = document.getElementById('formError');
+          if (!errBox) {
+            errBox = document.createElement('div');
+            errBox.id = 'formError';
+            errBox.style.cssText = 'color:#dc2626;font-size:.85rem;padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;margin-bottom:12px';
+            form.insertBefore(errBox, form.firstChild);
+          }
+          errBox.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (data.message || 'Something went wrong.');
+          errBox.style.display = 'block';
         }
       } catch {
-        alert('Network error. Please try again.');
+        let errBox = document.getElementById('formError');
+        if (!errBox) {
+          errBox = document.createElement('div');
+          errBox.id = 'formError';
+          errBox.style.cssText = 'color:#dc2626;font-size:.85rem;padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;margin-bottom:12px';
+          form.insertBefore(errBox, form.firstChild);
+        }
+        errBox.innerHTML = '<i class="fas fa-exclamation-circle"></i> Network error. Please try again.';
+        errBox.style.display = 'block';
       }
       btn.disabled = false;
       btn.innerHTML = 'Send Enquiry <i class="fas fa-paper-plane"></i>';
