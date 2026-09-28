@@ -32,6 +32,7 @@
         ['icon'=>'fas fa-building','label'=>'Our Clients','url'=>'clients/index.php'],
         ['icon'=>'fas fa-question-circle','label'=>'FAQs','url'=>'faqs/index.php'],
         ['icon'=>'fas fa-users','label'=>'Tool Users','url'=>'tool-users/index.php'],
+        ['icon'=>'fas fa-crown','label'=>'Pricing Plans','url'=>'plans/index.php'],
         ['icon'=>'fas fa-envelope','label'=>'Enquiries','url'=>'enquiries/index.php'],
         ['icon'=>'fas fa-images','label'=>'Media Library','url'=>'media/index.php'],
         ['icon'=>'fas fa-bars','label'=>'Navigation','url'=>'navigation/index.php'],
