@@ -21,7 +21,7 @@ if (empty($recaptchaResponse)) {
     echo json_encode(['success' => false, 'message' => 'Please complete the reCAPTCHA verification.']);
     exit;
 }
-$verify = @file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=6LdOydMtAAAAALLPg5Geu8UicT1bChguR2vAfQlo&response=' . $recaptchaResponse);
+$verify = @file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=6LdpztMtAAAAAPpLHQdN1GecYivhD8rqBGfhUASG&response=' . $recaptchaResponse);
 $result = json_decode($verify, true);
 if (!($result['success'] ?? false)) {
     echo json_encode(['success' => false, 'message' => 'reCAPTCHA failed. Please try again.']);
