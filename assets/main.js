@@ -78,10 +78,9 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       const btn   = form.querySelector('[type=submit]');
       const msg   = document.getElementById('formSuccess');
-      const recap = form.querySelector('.g-recaptcha');
 
-      // Check reCAPTCHA if present
-      if (recap && typeof grecaptcha !== 'undefined') {
+      // Check reCAPTCHA
+      if (typeof grecaptcha !== 'undefined') {
         const response = grecaptcha.getResponse();
         if (!response) {
           alert('Please complete the reCAPTCHA verification.');
